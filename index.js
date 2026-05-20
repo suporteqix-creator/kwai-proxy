@@ -26,11 +26,22 @@ app.get('/diagnostico', async (req, res) => {
     }],
   }
 
-  try {
+ try {
     const r = await fetch(KWAI_EVENTS_API, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Token': KWAI_TOKEN,
+      },
+      body: JSON.stringify({
+        pixel_id: KWAI_PIXEL_ID,
+        data: [{
+          event_name: 'ViewContent',
+          event_time: Math.floor(Date.now() / 1000),
+          event_id:   crypto.randomUUID(),
+          properties: { value: 0, currency: 'BRL', quantity: 1 },
+        }],
+      }),
     })
     const body = await r.text()
     res.json({ ok: r.ok, status: r.status, body, env: {
