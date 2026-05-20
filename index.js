@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 
-const KWAI_EVENTS_API = 'https://adsnebula.com/log/common/api'
+const KWAI_EVENTS_API = 'https://api.kwai.com/rest/o/v1/kwaipix/event'
 const PORT = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
